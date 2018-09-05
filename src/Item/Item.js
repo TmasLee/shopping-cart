@@ -49,20 +49,19 @@ class Item extends Component {
     qty: this.props.itemData.qty
   }
 
-  modalOn = (itemData) => {
+  openModal = (itemData) => {
     this.setState({
-      modal: <ItemModal 
-                itemData={itemData}
+      modal: <ItemModal itemData={itemData}
                 size={this.state.size}
                 qty={this.state.qty}
-                onEdit={this.onEdit}
+                confirmEdit={this.confirmEdit}
                 closeModal={this.closeModal}
-                onQtyChange={this.onQtyChange}
-                onSizeChange={this.onSizeChange}/>
+                onQtyEdit={this.onQtyEdit}
+                onSizeEdit={this.onSizeEdit}/>
     });
   }
 
-  onEdit = (e) => {
+  confirmEdit = (e) => {
     e.preventDefault();
     this.setState({modal: null});
   }
@@ -76,20 +75,20 @@ class Item extends Component {
     });
   }
 
-  onQtyChange = (e) => {
+  onQtyEdit = (e) => {
     e.preventDefault();
     this.setState({qty: e.target.value});
     this.props.changeQty(e, this.props.itemData.style_num);
   }
 
-  onSizeChange = (e) => {
+  onSizeEdit = (e) => {
     e.preventDefault();
     this.setState({size: e.target.value});
     this.props.changeSize(e, this.props.itemData.style_num);
   }
 
   render(){
-    const {itemData, removeItem} = this.props;
+    const {itemData, removeItem, changeSize, changeQty} = this.props;
 
     return(
       <tr style={styles.row}>
@@ -110,7 +109,7 @@ class Item extends Component {
                 style={styles.button}
                 onClick={(e)=>{
                   e.preventDefault();
-                  this.modalOn(itemData);
+                  this.openModal(itemData);
                 }}>EDIT</button>
               {' | '}
               <button 
@@ -128,8 +127,7 @@ class Item extends Component {
           <select 
           value={this.state.size}
           onChange={(e)=>{
-            this.onSizeChange(e)
-            // changeSize(e, itemData.style_num)
+            this.onSizeEdit(e)
           }}>
             <option value='S'>S</option>
             <option value='M'>M</option>
@@ -144,8 +142,7 @@ class Item extends Component {
           style= {styles.qty}
           value={this.state.qty}
           onChange={(e)=>{
-            this.onQtyChange(e)
-            // changeQty(e,itemData.style_num)
+            this.onQtyEdit(e)
           }}
           ></input>
         </td>

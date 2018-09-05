@@ -2,11 +2,25 @@ import React, { Component } from 'react';
 import './App.css';
 import ItemTable from './ItemTable';
 import PriceConfirmation from '../PriceConfirmation/PriceConfirmation';
+import Item from '../Item/Item';
 import Help from './Help';
 
 class App extends Component {
-  state = {
-    items: sampleItems,
+  constructor(props){
+    super(props);
+    this.state = {
+      items: sampleItems,
+    }
+    this.itemComponents = [];
+    this.state.items.forEach((item,i)=>{
+      this.itemComponents.push(
+        <Item key={i}
+          itemData={item}
+          removeItem={this.removeItem}
+          changeSize={this.changeSize}
+          changeQty={this.changeQty}/>
+      );
+    });
   }
 
   removeItem = (style_num) => {
@@ -16,19 +30,18 @@ class App extends Component {
   }
 
   changeSize = (e, style_num) => {
-    this.editData(e,style_num, 'size')();
+    this.editData(e,style_num,'size')();
   }
 
   changeQty = (e, style_num) => {
-    this.editData(e,style_num, 'qty')();
+    this.editData(e,style_num,'qty')();
   }
 
-  /** 
-   * Factory Function because same logic for changing qty and size.
-   */  
+  //  Factory function because same logic for changing qty and size.
   editData = (e, style_num, dataType) => {
     return () => {
       e.preventDefault();
+      // Copy data instead of pointer
       let itemsCopy = [...this.state.items];
       for (let i=0; i<itemsCopy.length; i++){
         if (itemsCopy[i].style_num === style_num){
@@ -41,7 +54,6 @@ class App extends Component {
 
   render() {
     const {items} = this.state;
-
     return (
       <div className='Background'>
         <div className="App">
@@ -51,12 +63,7 @@ class App extends Component {
               If the cart is completely empty then we shall again add back the products for you
             </p>
           </header>
-          <ItemTable 
-            items={items}
-            removeItem={this.removeItem}
-            changeSize={this.changeSize}
-            changeQty={this.changeQty}
-          />
+          <ItemTable items={(!this.itemComponents) ? [] : this.itemComponents}/>
           <div className='Bottom'>
             <Help />
             <PriceConfirmation items={items}/>
@@ -74,7 +81,7 @@ const sampleItems = [
     url: 'https://gear.blizzard.com/media/catalog/product/cache//550x550/a4e40ebdc3e371adff845072e1c73f37/o/v/overwatch-long-sleeve-shirt.png',
     name: 'Shirt 1',
     style_num: '1111111',
-    color: 'white',
+    color: 'White',
     size: 'S',
     qty: 1,
     price: 10.99
@@ -83,7 +90,7 @@ const sampleItems = [
     url: 'https://images-na.ssl-images-amazon.com/images/I/91MR26Sa4zL._UL1500_.jpg',
     name: 'Shirt 2',
     style_num: '1111112',
-    color: 'turquoise',
+    color: 'Turquoise',
     size: 'M',
     qty: 2,
     price: 16.99
@@ -92,7 +99,7 @@ const sampleItems = [
     url: 'http://www.sunprecautions.com/content/images/products/17100-3(prlgv)(studio)_900x1200.jpg',
     name: 'Shirt 3',
     style_num: '1111113',
-    color: 'blue',
+    color: 'Blue',
     size: 'L',
     qty: 1,
     price: 20.99,
@@ -102,7 +109,7 @@ const sampleItems = [
     url: 'https://static4.cilory.com/273124-large_default/nologo-navy-casual-shirt.jpg',
     name: 'Shirt 4',
     style_num: '1111114',
-    color: 'blue',
+    color: 'Blue',
     size: 'XS',
     qty: 3,
     price: 21.99

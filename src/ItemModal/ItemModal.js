@@ -92,7 +92,7 @@ const styles = {
   }
 }
 
-const ItemModal = ({itemData, size, qty, onEdit, closeModal, onQtyChange, onSizeChange}) => {
+const ItemModal = ({itemData, size, qty, confirmEdit, closeModal, onQtyEdit, onSizeEdit}) => {
   return(
     <div style={styles.modalBackground}>
       <div style={styles.modal}>
@@ -113,10 +113,10 @@ const ItemModal = ({itemData, size, qty, onEdit, closeModal, onQtyChange, onSize
               <div style={styles.color2}></div>
               <div style={styles.color3}></div>
             </div>
-            <div>Color: blue</div>
+            <div>Color: {itemData.color}</div>
           </div>
           <select 
-            onChange={(e)=>onSizeChange(e)}
+            onChange={(e)=>onSizeEdit(e)}
             defaultValue={size}>
             <option value='S'>S</option>
             <option value='M'>M</option>
@@ -125,7 +125,7 @@ const ItemModal = ({itemData, size, qty, onEdit, closeModal, onQtyChange, onSize
           </select> 
           {' '}
           <input 
-            onChange={(e)=>onQtyChange(e)}
+            onChange={(e)=>onQtyEdit(e)}
             type='number'
             min='1'
             style= {styles.qty}
@@ -134,7 +134,7 @@ const ItemModal = ({itemData, size, qty, onEdit, closeModal, onQtyChange, onSize
           <button
             style={styles.button}
             onClick={(e)=>{
-              onEdit(e)
+              confirmEdit(e)
             }}>Edit</button>
           <br/>
           <button style={styles.details}>Check product details</button>

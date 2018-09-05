@@ -1,5 +1,4 @@
 import React from 'react';
-import Item from '../Item/Item';
 
 const styles = {
   table: {
@@ -17,7 +16,6 @@ const styles = {
   itemCount: {
     width: '70%',
     padding: '0 0 0 10px',
-
   },
   size: {
     width: '10%',
@@ -31,7 +29,7 @@ const styles = {
   }
 }
 
-const ItemTable = ({items, ...props}) => {
+const ItemTable = ({items}) => {
   return(
     <table style={styles.table}>
       <tbody>
@@ -49,14 +47,7 @@ const ItemTable = ({items, ...props}) => {
             PRICE
           </th>
         </tr>  
-        {items.map((item, i)=>{
-          return(
-            <Item
-              key={i}
-              itemData={item}
-              {...props}/>
-          )
-        })}
+        {items}
       </tbody>
     </table>
   )
