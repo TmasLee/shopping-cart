@@ -10,23 +10,55 @@ class App extends Component {
     super(props);
     this.state = {
       items: sampleItems,
+      itemComponents: []
     }
+  }
+
+  componentDidMount = () => {
+    this.updateItemComponents();
+    this.setState({itemComponents: this.itemComponents});
+  }
+
+  componentDidUpdate = (prevProps,prevState) => {
+    if (prevState.items !== this.state.items){
+      this.updateItemComponents();
+      this.setState({itemComponents: this.itemComponents});
+    }
+  }
+
+  updateItemComponents = () => {
     this.itemComponents = [];
-    this.state.items.forEach((item,i)=>{
-      this.itemComponents.push(
-        <Item key={i}
-          itemData={item}
-          removeItem={this.removeItem}
-          changeSize={this.changeSize}
-          changeQty={this.changeQty}/>
-      );
-    });
+      this.state.items.forEach((item,i)=>{
+        this.itemComponents.push(
+          <Item key={i}
+            itemData={item}
+            removeItem={this.removeItem}
+            confirmItemEdit={this.confirmItemEdit}
+            changeSize={this.changeSize}
+            changeQty={this.changeQty}/>
+        );
+      });
   }
 
   removeItem = (style_num) => {
     this.setState((prevState)=>({
       items: prevState.items.filter(item => item.style_num !== style_num)
     }));
+  }
+
+  confirmItemEdit = (newSize, newQty, style_num) => {
+    let itemsCopy = [...this.state.items];
+    for (let i=0; i<itemsCopy.length; i++){
+      if (itemsCopy[i].style_num === style_num){
+        if ((itemsCopy[i]['size'] !== newSize)){
+          itemsCopy[i]['size'] = newSize;
+        }
+        if ((itemsCopy[i]['qty'] !== newQty)){
+          itemsCopy[i]['qty'] = newQty;
+        }
+      }
+    }
+    this.setState({items: itemsCopy});
   }
 
   changeSize = (e, style_num) => {

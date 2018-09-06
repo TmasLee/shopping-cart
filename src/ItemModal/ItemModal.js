@@ -97,10 +97,10 @@ const ItemModal = ({itemData, size, qty, confirmEdit, closeModal, onQtyEdit, onS
     <div style={styles.modalBackground}>
       <div style={styles.modal}>
         <div>
-          <button
+          <button 
             onClick={(e)=>closeModal(e)}
-           style={styles.close} 
-           className="far fa-window-close"></button>
+            style={styles.close} 
+            className="far fa-window-close"></button>
         </div>
         <div style={styles.info}>
           <div>{itemData.name}</div>
@@ -117,7 +117,7 @@ const ItemModal = ({itemData, size, qty, confirmEdit, closeModal, onQtyEdit, onS
           </div>
           <select 
             onChange={(e)=>onSizeEdit(e)}
-            defaultValue={size}>
+            defaultValue={itemData.size}>
             <option value='S'>S</option>
             <option value='M'>M</option>
             <option value='L'>L</option>
@@ -129,7 +129,7 @@ const ItemModal = ({itemData, size, qty, confirmEdit, closeModal, onQtyEdit, onS
             type='number'
             min='1'
             style= {styles.qty}
-            defaultValue={qty}></input>
+            defaultValue={itemData.qty}></input>
           <br/>
           <button
             style={styles.button}

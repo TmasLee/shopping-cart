@@ -44,56 +44,62 @@ const styles = {
 
 class Item extends Component {
   state = {
-    modal: null,
+    showModal: false,
     size: this.props.itemData.size,
     qty: this.props.itemData.qty
   }
 
-  openModal = (itemData) => {
-    this.setState({
-      modal: <ItemModal itemData={itemData}
-                size={this.state.size}
-                qty={this.state.qty}
-                confirmEdit={this.confirmEdit}
-                closeModal={this.closeModal}
-                onQtyEdit={this.onQtyEdit}
-                onSizeEdit={this.onSizeEdit}/>
-    });
+  openModal = () => {
+    this.setState((prevState)=>({
+      showModal: !prevState.showModal
+    }));
   }
 
   confirmEdit = (e) => {
     e.preventDefault();
-    this.setState({modal: null});
+    this.setState((prevState)=>({
+      showModal: !prevState.showModal,
+      size: this.props.itemData.size,
+      qty: this.props.itemData.qty
+    }));
+    this.props.confirmItemEdit(this.state.size, this.state.qty, 
+      this.props.itemData.style_num);
   }
 
   closeModal = (e) => {
     e.preventDefault();
-    this.setState({
-      size: this.props.itemData.size,
-      qty: this.props.itemData.qty,
-      modal: null
-    });
+    this.setState((prevState)=>({
+      showModal: !prevState.showModal
+    }));
   }
 
   onQtyEdit = (e) => {
     e.preventDefault();
     this.setState({qty: e.target.value});
-    this.props.changeQty(e, this.props.itemData.style_num);
   }
 
   onSizeEdit = (e) => {
     e.preventDefault();
     this.setState({size: e.target.value});
-    this.props.changeSize(e, this.props.itemData.style_num);
   }
 
   render(){
     const {itemData, removeItem, changeSize, changeQty} = this.props;
+    let modal;
 
+    if (this.state.showModal){
+      modal = (<ItemModal itemData={itemData}
+        size={this.state.size}
+        qty={this.state.qty}
+        confirmEdit={this.confirmEdit}
+        closeModal={this.closeModal}
+        onQtyEdit={this.onQtyEdit}
+        onSizeEdit={this.onSizeEdit}/>)
+    }
     return(
       <tr style={styles.row}>
         <td>
-          {this.state.modal}
+          {modal}
           <img 
             alt='Loading...'
             src={itemData.url}
@@ -125,9 +131,9 @@ class Item extends Component {
         </td>
         <td style={styles.size_qty}>
           <select 
-          value={this.state.size}
-          onChange={(e)=>{
-            this.onSizeEdit(e)
+            value={itemData.size}
+            onChange={(e)=>{
+              changeSize(e,itemData.style_num);
           }}>
             <option value='S'>S</option>
             <option value='M'>M</option>
@@ -137,13 +143,13 @@ class Item extends Component {
         </td>
         <td style={styles.size_qty}>
           <input 
-          type='number'
-          min='1'
-          style= {styles.qty}
-          value={this.state.qty}
-          onChange={(e)=>{
-            this.onQtyEdit(e)
-          }}
+            type='number'
+            min='1'
+            style= {styles.qty}
+            value={itemData.qty}
+            onChange={(e)=>{
+              changeQty(e,itemData.style_num);
+            }}
           ></input>
         </td>
         <td style={styles.price}>${itemData.price}</td>
