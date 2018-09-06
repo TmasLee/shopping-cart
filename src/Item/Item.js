@@ -89,8 +89,6 @@ class Item extends Component {
 
     if (this.state.showModal){
       modal = (<ItemModal itemData={itemData}
-        size={this.state.size}
-        qty={this.state.qty}
         confirmEdit={this.confirmEdit}
         closeModal={this.closeModal}
         onQtyEdit={this.onQtyEdit}

@@ -92,7 +92,7 @@ const styles = {
   }
 }
 
-const ItemModal = ({itemData, size, qty, confirmEdit, closeModal, onQtyEdit, onSizeEdit}) => {
+const ItemModal = ({itemData, confirmEdit, closeModal, onQtyEdit, onSizeEdit}) => {
   return(
     <div style={styles.modalBackground}>
       <div style={styles.modal}>
