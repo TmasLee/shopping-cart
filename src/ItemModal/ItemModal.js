@@ -94,7 +94,9 @@ const styles = {
 
 const ItemModal = ({itemData, confirmEdit, closeModal, onQtyEdit, onSizeEdit}) => {
   return(
-    <div style={styles.modalBackground}>
+    <div 
+      style={styles.modalBackground}
+      onClick={(e)=>closeModal(e)}>
       <div style={styles.modal}>
         <div>
           <button 
