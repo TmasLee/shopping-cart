@@ -5,11 +5,12 @@ const styles = {
   row: {
     borderBottom: '1px solid rgb(230, 230, 230)',
     verticalAlign: 'top',
+    padding: '15px',
   },
   itemInfo:{
     display: 'inline-block',
     verticalAlign: 'top',
-    padding: '20px',
+    width: '70%',
     name: {
       color: 'rgb(100,100,100)',
       fontWeight: '700'
@@ -25,21 +26,27 @@ const styles = {
   image: {
     width: '110px',
     height: '130px',
-    padding: '20px 0 20px 0'
+    paddingRight: '5px'
   },
   size_qty: {
     padding: '20px 0 0 0',
-    width: '3em'
+    width: '10%',
+    textAlign: 'center',
   },
   qty: {
-    width: '3em'
+    width: '3em',
   },
   price: {
+    padding: '20px 0 0 0',
+    textAlign: 'center',
+    width: '10%',
     fontSize: '16px',
     fontWeight: '600',
     color: 'rgb(100,100,100)',
-    padding: '20px 0 0 0'
   },
+  infoBlock: {
+    display: 'inline-block',
+  }
 }
 
 class Item extends Component {
@@ -95,16 +102,14 @@ class Item extends Component {
         onSizeEdit={this.onSizeEdit}/>)
     }
     return(
-      <tr style={styles.row}>
-        <td>
-          {modal}
-          <img 
-            alt='Loading...'
+      <div className='row' style={styles.row}>
+        <div className='col-lg-6' style={styles.itemInfo}>
+          <img alt='Loading...'
             src={itemData.url}
             style={styles.image}/>
-          <div style={styles.itemInfo}>
+          <div style={styles.infoBlock}>
             <div style={styles.itemInfo.name}>
-              {itemData.name}
+                {itemData.name}
             </div>
             <div>Style #: {itemData.style_num}</div>
             <div>Color: {itemData.color}</div>
@@ -126,8 +131,8 @@ class Item extends Component {
               <button style={styles.button}>SAVE FOR LATER</button>
             </div>
           </div>
-        </td>
-        <td style={styles.size_qty}>
+        </div>
+        <div className='col-lg-2' style={styles.size_qty}>
           <select 
             value={itemData.size}
             onChange={(e)=>{
@@ -138,8 +143,8 @@ class Item extends Component {
             <option value='L'>L</option>
             <option value='XL'>XL</option>
           </select>
-        </td>
-        <td style={styles.size_qty}>
+        </div>
+        <div className='col-lg-2' style={styles.size_qty}>
           <input 
             type='number'
             min='1'
@@ -149,9 +154,11 @@ class Item extends Component {
               changeQty(e,itemData.style_num);
             }}
           ></input>
-        </td>
-        <td style={styles.price}>${itemData.price}</td>
-      </tr>
+        </div>
+        <div className='col-lg-2' style={styles.price}>
+          ${itemData.price}
+        </div>
+      </div>
     )
   }
 }
