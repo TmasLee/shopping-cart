@@ -17,7 +17,7 @@ const styles = {
     textDecoration: 'underline'
   },
   p: {
-    marginBottom: '.5rem'
+    marginBottom: '.4rem'
   }
 }
 

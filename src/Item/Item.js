@@ -55,53 +55,26 @@ class Item extends Component {
     qty: this.props.itemData.qty
   }
 
-  openModal = () => {
-    this.setState((prevState)=>({
-      showModal: !prevState.showModal
-    }));
-  }
-
-  confirmEdit = (e) => {
-    e.preventDefault();
-    this.setState((prevState)=>({
-      showModal: !prevState.showModal,
-      size: this.props.itemData.size,
-      qty: this.props.itemData.qty
-    }));
-    this.props.confirmItemEdit(this.state.size, this.state.qty, 
-      this.props.itemData.style_num);
-  }
-
-  closeModal = (e) => {
+  toggleModal = (e) => {
     e.preventDefault();
     this.setState((prevState)=>({
       showModal: !prevState.showModal
     }));
-  }
-
-  onQtyEdit = (e) => {
-    e.preventDefault();
-    this.setState({qty: e.target.value});
-  }
-
-  onSizeEdit = (e) => {
-    e.preventDefault();
-    this.setState({size: e.target.value});
   }
 
   render(){
-    const {itemData, removeItem, changeSize, changeQty} = this.props;
-    let modal;
+    const {itemData, confirmItemEdit, removeItem, changeSize, changeQty} = this.props;
+    let modal = null;
 
     if (this.state.showModal){
       modal = (<ItemModal itemData={itemData}
-        confirmEdit={this.confirmEdit}
-        closeModal={this.closeModal}
-        onQtyEdit={this.onQtyEdit}
-        onSizeEdit={this.onSizeEdit}/>)
+        toggleModal={this.toggleModal}
+        currentState={this.state}
+        confirmItemEdit={confirmItemEdit}/>)
     }
     return(
       <div className='row' style={styles.row}>
+        {modal}
         <div className='col-lg-6' style={styles.itemInfo}>
           <img alt='Loading...'
             src={itemData.url}
@@ -114,8 +87,7 @@ class Item extends Component {
             <div style={{paddingLeft:'6px'}}>Color: {itemData.color}</div>
             <button style={styles.button}
               onClick={(e)=>{
-                e.preventDefault();
-                this.openModal(itemData);
+                this.toggleModal(e);
               }}>EDIT</button>
             {' | '}
             <button style={styles.button}

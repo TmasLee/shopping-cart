@@ -12,7 +12,8 @@ const styles = {
   },
   promo: {
     color: 'rgb(155,155,155)',
-    padding: '0 0 10px 0'
+    padding: '0 0 10px 0',
+    flexWrap: 'nowrap'
   },
   promoBtn: {
     background: 'none',
@@ -54,7 +55,7 @@ const styles = {
     textAlign: 'right'
   },
   applyPromo: {
-    textAlign: 'right'
+    textAlign: 'right',
   }
 }
 
