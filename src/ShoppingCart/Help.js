@@ -3,13 +3,14 @@ import React from 'react';
 const styles = {
   help:{
     fontSize: '10px',
-    color: 'rgb(155,155,155)',
+    color: 'rgb(120,120,120)',
     float: 'left',
     padding: '0 0 0 4%',
   },
   customerService: {
     fontSize: '11px',
-    fontWeight: '600'
+    fontWeight: '600',
+    marginBottom: '.5rem'
   },
   links: {
     color: 'rgb(100,100,100)',

@@ -38,7 +38,8 @@ const styles = {
     cursor: 'pointer',
     fontSize: '14px',
     color: 'white',
-    border: '1px solid black'
+    border: '1px solid black',
+    marginBottom: '5px'
   },
   continueBtn: {
     background: 'none',
@@ -56,6 +57,14 @@ const styles = {
   },
   applyPromo: {
     textAlign: 'right',
+    display: 'inline'
+  },
+  promoInput: {
+    verticalAlign: 'bottom'
+  },
+  lockIcon: {
+    fontSize: '18px',
+    verticalAlign: 'bottom'
   }
 }
 
@@ -75,7 +84,7 @@ class PriceConfirmation extends Component {
     this.calculatePrice(this.props.items);
   }
 
-  componentDidUpdate(prevProps, prevState){
+  componentDidUpdate(prevProps){
     if (prevProps.items !== this.props.items){
       this.calculatePrice(this.props.items);
     }
@@ -105,8 +114,8 @@ class PriceConfirmation extends Component {
             </div>
             <div style={styles.applyPromo} 
               className='col-lg-4'>
-              <input 
-                size='4'
+              <input style={styles.promoInput}
+                size='3'
                 defaultValue='AJ10'></input>
               <button style={styles.promoBtn}>APPLY</button>
             </div>  
@@ -153,7 +162,7 @@ class PriceConfirmation extends Component {
         <div style={styles.secure}>
           <button style={styles.continueBtn}>CONTINUE SHOPPING</button>
           <button style={styles.checkoutBtn}>CHECKOUT</button>
-          <p>Secure checkout. Shopping is always safe & secure</p>
+          <p><i style={styles.lockIcon} className="fas fa-lock"></i> Secure checkout. Shopping is always safe & secure</p>
         </div>
       </form>
     )

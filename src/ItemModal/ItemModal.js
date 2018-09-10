@@ -105,10 +105,6 @@ class ItemModal extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState){
-
-  }
-
   onQtyEdit = (e) => {
     e.preventDefault();
     this.setState({qty: e.target.value});
