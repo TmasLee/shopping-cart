@@ -62,10 +62,12 @@ class App extends Component {
   }
 
   changeSize = (e, style_num) => {
+    e.preventDefault();
     this.editData(e,style_num,'size')();
   }
 
   changeQty = (e, style_num) => {
+    e.preventDefault();
     this.editData(e,style_num,'qty')();
   }
 

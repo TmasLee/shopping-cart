@@ -2,33 +2,25 @@ import React from 'react';
 
 const styles = {
   table: {
-    width: '95%',
+    width: '90%',
     margin: '0 auto',
     fontSize: '12px',
+    fontWeight: '700',
     color: 'rgb(155, 155, 155)',
     paddingRight: '0',
     paddingLeft: '0',
     borderCollapse: 'collapse',
-    borderBottom: '4px solid rgb(230, 230, 230)'
   },
   header: {
     borderBottom: '2px solid rgb(230, 230, 230)',
+    flexWrap: 'nowrap'
   },
   itemCount: {
-    width: '70%',
+    paddingLeft: '20px',
   },
   size: {
-    width: '10%',
     textAlign: 'center'
   },
-  quantity: {
-    width: '10%',
-    textAlign: 'center'
-  },
-  price: {
-    width: '10%',
-    textAlign: 'center'
-  }
 }
 
 const ItemTable = ({items}) => {
@@ -46,11 +38,11 @@ const ItemTable = ({items}) => {
           SIZE
         </div>
         <div className='col col-lg-2'
-          style={styles.quantity}>
+          style={styles.size}>
           QTY
         </div>
         <div className='col col-lg-2'
-          style={styles.price}>
+          style={styles.size}>
           PRICE
         </div>
       </div>

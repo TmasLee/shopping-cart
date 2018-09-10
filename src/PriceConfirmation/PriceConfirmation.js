@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 
 const styles = {
   confirmation: {
+    display: 'inline-block',
+    width: '50%',
     fontSize: '12px',
     fontWeight: '600',
     color: 'rgb(100,100,100)',
@@ -10,7 +12,7 @@ const styles = {
   },
   promo: {
     color: 'rgb(155,155,155)',
-    borderBottom: '5px solid rgb(200, 200, 200)',
+    padding: '0 0 10px 0'
   },
   promoBtn: {
     background: 'none',
@@ -49,6 +51,9 @@ const styles = {
     fontSize: '11px',
     fontWeight: '600',
     color: 'rgb(155,155,155)',
+    textAlign: 'right'
+  },
+  applyPromo: {
     textAlign: 'right'
   }
 }
@@ -91,68 +96,65 @@ class PriceConfirmation extends Component {
     const {subTotal, promoCode, promoDeduction, estimatedShipping, estimatedTotal} = this.state;
     
     return(
-      <div>
-        <form style={styles.confirmation}>
-          <table style={styles.table}>
-            <tbody>
-              <tr style={styles.promo}>
-                <td>
-                  ENTER PROMO CODE OR GIFT CARD
-                </td>
-                <td>
-                  <input 
-                    size='4'
-                    defaultValue='AJ10'></input>
-                  <button style={styles.promoBtn}>APPLY</button>
-                </td>  
-              </tr>
-              <tr style={styles.rows}>
-                <td>
-                  SUB TOTAL
-                </td>
-                <td style={styles.sub}>
-                  ${parseFloat(subTotal).toFixed(2)}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  PROMOTION CODE {promoCode} APPLIED
-                </td>
-                <td style={styles.sub}>
-                  {parseFloat(promoDeduction).toFixed(2)}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  ESTIMATED SHIPPING*
-                  <div style={styles.disclaimer}>
-                    You qualify for free shipping because your order is over 500 
-                  </div>
-                </td>
-                <td style={styles.sub}>
-                  ${estimatedShipping}
-                </td>
-              </tr>
-              <tr>
-                <td style={styles.total}>
-                  ESTIMATED TOTAL
-                  <div style={styles.disclaimer}>
-                    Tax will be applied during checkout
-                  </div>
-                </td>
-                <td style={styles.sub}>
-                  ${parseFloat(estimatedTotal).toFixed(2)}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div style={styles.secure}>
-            <button style={styles.continueBtn}>CONTINUE SHOPPING</button>
-            <button style={styles.checkoutBtn}>CHECKOUT</button>
-            <p>Secure checkout. Shopping is always safe & secure</p>
+      <form style={styles.confirmation}>
+        <div className='container'>
+          <div className='row' style={styles.promo}>
+            <div className='col-lg-8'>
+              ENTER PROMO CODE OR GIFT CARD
+            </div>
+            <div style={styles.applyPromo} 
+              className='col-lg-4'>
+              <input 
+                size='4'
+                defaultValue='AJ10'></input>
+              <button style={styles.promoBtn}>APPLY</button>
+            </div>  
           </div>
-        </form>
-      </div>
+          <div className='row' style={styles.rows}>
+            <div className='col-lg-9'>
+              SUB TOTAL
+            </div>
+            <div className='col-lg-3' style={styles.sub}>
+              ${parseFloat(subTotal).toFixed(2)}
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-lg-9'>
+              PROMOTION CODE {promoCode} APPLIED
+            </div>
+            <div className='col-lg-3' style={styles.sub}>
+              {parseFloat(promoDeduction).toFixed(2)}
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-lg-9'>
+              ESTIMATED SHIPPING*
+              <div style={styles.disclaimer}>
+                You qualify for free shipping because your order is over 500 
+              </div>
+            </div>
+            <div className='col-lg-3' style={styles.sub}>
+              ${estimatedShipping}
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-lg-9' style={styles.total}>
+              ESTIMATED TOTAL
+              <div style={styles.disclaimer}>
+                Tax will be applied during checkout
+              </div>
+            </div>
+            <div className='col-lg-3' style={styles.sub}>
+              ${parseFloat(estimatedTotal).toFixed(2)}
+            </div>
+          </div>
+        </div>
+        <div style={styles.secure}>
+          <button style={styles.continueBtn}>CONTINUE SHOPPING</button>
+          <button style={styles.checkoutBtn}>CHECKOUT</button>
+          <p>Secure checkout. Shopping is always safe & secure</p>
+        </div>
+      </form>
     )
   }
 }

@@ -4,16 +4,16 @@ import ItemModal from '../ItemModal/ItemModal';
 const styles = {
   row: {
     borderBottom: '1px solid rgb(230, 230, 230)',
-    verticalAlign: 'top',
-    padding: '15px',
+    padding: '15px 0px',
+    flexWrap: 'nowrap'
   },
   itemInfo:{
-    display: 'inline-block',
-    verticalAlign: 'top',
     width: '70%',
+    padding: '0px',
     name: {
       color: 'rgb(100,100,100)',
-      fontWeight: '700'
+      fontWeight: '700',
+      paddingLeft: '6px',
     }
   },
   button: {
@@ -26,10 +26,9 @@ const styles = {
   image: {
     width: '110px',
     height: '130px',
-    paddingRight: '5px'
   },
   size_qty: {
-    padding: '20px 0 0 0',
+    padding: '20px 0 0 20px',
     width: '10%',
     textAlign: 'center',
   },
@@ -37,7 +36,7 @@ const styles = {
     width: '3em',
   },
   price: {
-    padding: '20px 0 0 0',
+    padding: '20px 0 0 20px',
     textAlign: 'center',
     width: '10%',
     fontSize: '16px',
@@ -109,32 +108,27 @@ class Item extends Component {
             style={styles.image}/>
           <div style={styles.infoBlock}>
             <div style={styles.itemInfo.name}>
-                {itemData.name}
+              {itemData.name}
             </div>
-            <div>Style #: {itemData.style_num}</div>
-            <div>Color: {itemData.color}</div>
-            <div>
-              <button 
-                style={styles.button}
-                onClick={(e)=>{
-                  e.preventDefault();
-                  this.openModal(itemData);
-                }}>EDIT</button>
-              {' | '}
-              <button 
-                style={styles.button}
-                onClick={(e)=>{
-                  e.preventDefault();
-                  removeItem(itemData.style_num);
-                }}>X REMOVE</button>
-              {' | '}
-              <button style={styles.button}>SAVE FOR LATER</button>
-            </div>
+            <div style={{paddingLeft:'6px'}}>Style #: {itemData.style_num}</div>
+            <div style={{paddingLeft:'6px'}}>Color: {itemData.color}</div>
+            <button style={styles.button}
+              onClick={(e)=>{
+                e.preventDefault();
+                this.openModal(itemData);
+              }}>EDIT</button>
+            {' | '}
+            <button style={styles.button}
+              onClick={(e)=>{
+                e.preventDefault();
+                removeItem(itemData.style_num);
+              }}>X REMOVE</button>
+            {' | '}
+            <button style={styles.button}>SAVE FOR LATER</button>
           </div>
         </div>
         <div className='col-lg-2' style={styles.size_qty}>
-          <select 
-            value={itemData.size}
+          <select value={itemData.size}
             onChange={(e)=>{
               changeSize(e,itemData.style_num);
           }}>
@@ -145,8 +139,7 @@ class Item extends Component {
           </select>
         </div>
         <div className='col-lg-2' style={styles.size_qty}>
-          <input 
-            type='number'
+          <input type='number'
             min='1'
             style= {styles.qty}
             value={itemData.qty}

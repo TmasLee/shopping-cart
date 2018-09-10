@@ -5,7 +5,7 @@ const styles = {
     fontSize: '10px',
     color: 'rgb(155,155,155)',
     float: 'left',
-    padding: '0 0 0 4%'
+    padding: '0 0 0 4%',
   },
   customerService: {
     fontSize: '11px',
@@ -14,16 +14,20 @@ const styles = {
   links: {
     color: 'rgb(100,100,100)',
     fontWeight: '600',
+    textDecoration: 'underline'
   },
+  p: {
+    marginBottom: '.5rem'
+  }
 }
 
 const Help = () => {
   return(
     <div style={styles.help}>
       <p style={styles.customerService}>Need help or have questions?</p>
-      <p>Call Customer Service at 1-800-555</p>
-      <p><a href='' style={styles.links}>Chat with one of our stylists</a></p>
-      <p><a href='' style={styles.links}>See return or exhange policy</a></p>
+      <p style={styles.p}>Call Customer Service at <a href='' style={styles.links}>1-800-555</a></p>
+      <p style={styles.p}><a href='' style={styles.links}>Chat with one of our stylists</a></p>
+      <p style={styles.p}><a href='' style={styles.links}>See return or exhange policy</a></p>
     </div>
   )
 }
