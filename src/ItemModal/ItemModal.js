@@ -8,16 +8,19 @@ const styles = {
     width: '100%',
     height: '100%',
     background: 'rgba(0,0,0,.6)',
-    zIndex: '100'
+    zIndex: '9998'
   },
   modal: {
+    position: 'absolute',
     background: 'white',
     display: 'flex',
+    borderRadius: '15px',
     width: '560px',
-    height: '350px',
-    margin: '25% auto',
-    transform: 'translate(0%,-5%)',
-    zIndex: '101'
+    height: '380px',
+    top: '50%',
+    left: '45%',
+    transform: 'translate(-40%,-100%)',
+    zIndex: '9999'
   },
   info: {
     alignSelf: 'center',
@@ -30,7 +33,8 @@ const styles = {
     fontWeight: '550',
   },
   colors: {
-    color: 'rgb(180,180,180)'
+    color: 'rgb(180,180,180)',
+    padding: '2px'
   },
   colorsFlex: {
     display:'inline-flex',
@@ -95,7 +99,7 @@ const styles = {
 class ItemModal extends Component {
   constructor(props){
     super(props);
-    this.setState = {
+    this.state = {
       size: this.props.currentState.size,
       qty: this.props.currentState.qty
     }
@@ -130,51 +134,55 @@ class ItemModal extends Component {
     const {itemData, toggleModal} = this.props;
 
     return(
-      <div style={styles.modalBackground}
-          onClick={(e)=>toggleModal(e)}>
+      <div>
+        <div style={styles.modalBackground} onClick={(e)=>toggleModal(e)}>
+        </div>
         <div style={styles.modal}>
-          <div>
-            <button style={styles.close}
-                onClick={(e)=>toggleModal(e)}
-                className="far fa-window-close"></button>
-          </div>
-          <div style={styles.info}>
-            <div>{itemData.name}</div>
-            <div style={styles.price}>${itemData.price}</div>
-            <div style={styles.colors}>
-              <div>{itemData.style_num}</div>
-              <div style={styles.colorsFlex}>
-                <div style={styles.color1}></div>
-                <div style={styles.color2}></div>
-                <div style={styles.color3}></div>
-              </div>
-              <div>Color: {itemData.color}</div>
+        <div>
+          <button style={styles.close}
+              onClick={(e)=>toggleModal(e)}
+              className="far fa-window-close"></button>
+        </div>
+        <div style={styles.info}>
+          <div>{itemData.name}</div>
+          <div style={styles.price}>${itemData.price}</div>
+          <div style={styles.colors}>
+            <div>{itemData.style_num}</div>
+            <div style={styles.colorsFlex}>
+              <div style={styles.color1}></div>
+              <div style={styles.color2}></div>
+              <div style={styles.color3}></div>
             </div>
-            <select onChange={(e)=>this.onSizeEdit(e)}
-                defaultValue={itemData.size}>
-              <option value='S'>S</option>
-              <option value='M'>M</option>
-              <option value='L'>L</option>
-              <option value='XL'>XL</option>
-            </select> 
-            {' '}
-            <input onChange={(e)=>this.onQtyEdit(e)}
-                type='number'
-                min='1'
-                style= {styles.qty}
-                defaultValue={itemData.qty}
-            ></input>
-            <br/>
-            <button style={styles.button}
-                onClick={(e)=>{this.confirmEdit(e)}}>
-              Edit
-            </button>
-            <button style={styles.details}>Check product details</button>
+            <div>Color: {itemData.color}</div>
           </div>
-          <div style={{display: 'inline-block'}}>
-            <img alt='Loading...' src={itemData.url}
-                style={styles.image}/>
-          </div>
+          <select onChange={(e)=>this.onSizeEdit(e)}
+              defaultValue={itemData.size}>
+            <option value='S'>S</option>
+            <option value='M'>M</option>
+            <option value='L'>L</option>
+            <option value='XL'>XL</option>
+          </select> 
+          {' '}
+          <input onChange={(e)=>this.onQtyEdit(e)}
+              type='number'
+              min='1'
+              style= {styles.qty}
+              defaultValue={itemData.qty}
+          ></input>
+          <br/>
+          <button style={styles.button}
+              onClick={(e)=>{
+                this.confirmEdit(e);
+                toggleModal(e);
+                }}>
+            Edit
+          </button>
+          <button style={styles.details}>Check product details</button>
+        </div>
+        <div style={{display: 'inline-block'}}>
+          <img alt='Loading...' src={itemData.url}
+              style={styles.image}/>
+        </div>
         </div>
       </div>
     )
